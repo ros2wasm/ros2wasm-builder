@@ -36,7 +36,9 @@ jobs:
         micromamba-version: '1.4.1'
     
     - name: Activate environment
-      run: micromamba activate ros-env
+      run: |
+        eval "$(micromamba shell hook --shell=bash)"
+        micromamba activate ros-env
 
     - name: Install dependencies
       uses: actions/setup-node@v3
