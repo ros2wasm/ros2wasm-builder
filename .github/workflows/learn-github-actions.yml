@@ -11,19 +11,18 @@ run-name: Build up to package ${{ inputs.package }}
 
 
 jobs:
-  build:
+  setup:
     runs-on: ubuntu-latest
     steps:
+    - run: mkdir -p ${{ github.workspace }}/src
     - uses: actions/checkout@v3
       with:
-        path: ./src/
+        path: ${{ github.workspace }}/src/
     - uses: actions/setup-node@v3
       with:
         node-version: '14'
-    - run: npm install -g bats
-    - run: bats -v
     - run: |
         echo ${{ inputs.package }}
         echo ${{ github.workspace }}
-        cat ./src/workflows/src/hello.py
+        cat ${{ github.workspace }}/src/hello.py
         echo 'DONE'
