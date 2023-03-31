@@ -17,7 +17,7 @@ jobs:
     - run: mkdir -p ros_workspace/src
     - uses: actions/checkout@v3
       with:
-        path: ros_workspace/src
+        path: ros_workspace/src/myrepo
     - uses: actions/setup-node@v3
       with:
         node-version: '14'
