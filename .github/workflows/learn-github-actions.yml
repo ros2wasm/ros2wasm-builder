@@ -1,7 +1,4 @@
 name: build-package
-branding:
-  icon: 'award'
-  color: 'green'
 on:
   workflow_dispatch:
     inputs:
@@ -14,13 +11,19 @@ run-name: Build up to package ${{ inputs.package }}
 
 
 jobs:
-  check-bats-version:
+  build:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
+      with:
+        path: ./src/
     - uses: actions/setup-node@v3
       with:
         node-version: '14'
     - run: npm install -g bats
     - run: bats -v
-    - run: echo ${{ inputs.package }}
+    - run: |
+      echo ${{ inputs.package }}
+      echo ${{ github.workspace }}
+      cat ./src/workflows/src/hello.py
+      echo "DONE"
