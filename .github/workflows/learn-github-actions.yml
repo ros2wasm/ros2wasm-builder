@@ -8,6 +8,10 @@ on:
         default: 'rclcpp'
         required: true
 run-name: Build up to package ${{ inputs.package }}
+branding:
+  icon: 'award'
+  color: 'green'
+
 
 jobs:
   check-bats-version:
