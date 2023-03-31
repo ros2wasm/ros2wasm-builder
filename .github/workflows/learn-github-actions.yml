@@ -31,7 +31,7 @@ jobs:
     - name: Create environment
       uses: mamba-org/provision-with-micromamba@main
       with:
-        environment-file: env.yaml
+        environment-file: ros_workspace/src/myrepo/src/env.yaml
         environment-name: ros-env
         micromamba-version: '1.4.1'
     
