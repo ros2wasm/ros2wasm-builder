@@ -25,5 +25,9 @@ jobs:
         echo ${{ inputs.package }}
         ls ${{ github.workspace }}
         echo 'HOME'
-        find .
+        cat ros_workspace/src/myrepo/src/hello.py
+        cd ros_workspace
+        touch tst.txt
+        echo 'NEW FILE'
+        ls .
         echo 'DONE'
