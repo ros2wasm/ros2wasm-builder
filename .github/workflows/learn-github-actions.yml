@@ -26,4 +26,4 @@ jobs:
       echo ${{ inputs.package }}
       echo ${{ github.workspace }}
       cat ./src/workflows/src/hello.py
-      echo "DONE"
+      echo 'DONE'
