@@ -24,7 +24,7 @@ jobs:
     - name: Setup emsdk
       uses: mymindstorm/setup-emsdk@v11
       with:
-        version: 1.38.40
+        version: 3.1.27
       
     - name: Verify emsdk
       run: emcc -v      
