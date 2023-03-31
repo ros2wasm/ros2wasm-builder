@@ -14,10 +14,10 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     steps:
-    - run: mkdir -p /home/workspace/src
+    - run: mkdir -p ros_workspace/src
     - uses: actions/checkout@v3
       with:
-        path: /home/workspace/src/
+        path: ros_workspace/src
     - uses: actions/setup-node@v3
       with:
         node-version: '14'
@@ -25,6 +25,5 @@ jobs:
         echo ${{ inputs.package }}
         ls ${{ github.workspace }}
         echo 'HOME'
-        ls /home/workspace/src/
-        cat /home/workspace/src/hello.py
+        ls ros_workspace/src
         echo 'DONE'
