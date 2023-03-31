@@ -1,4 +1,7 @@
-name: learn-github-actions
+name: build-package
+branding:
+  icon: 'award'
+  color: 'green'
 on:
   workflow_dispatch:
     inputs:
@@ -8,9 +11,6 @@ on:
         default: 'rclcpp'
         required: true
 run-name: Build up to package ${{ inputs.package }}
-branding:
-  icon: 'award'
-  color: 'green'
 
 
 jobs:
