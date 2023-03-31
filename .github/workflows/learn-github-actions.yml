@@ -1,5 +1,4 @@
 name: learn-github-actions
-run-name: ${{ github.actor }} is learning GitHub Actions
 on:
   workflow_dispatch:
     inputs:
@@ -8,6 +7,8 @@ on:
         type: string
         default: 'rclcpp'
         required: true
+run-name: Build up to package ${{ inputs.package }}
+
 jobs:
   check-bats-version:
     runs-on: ubuntu-latest
