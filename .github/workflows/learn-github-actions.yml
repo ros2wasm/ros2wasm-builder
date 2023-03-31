@@ -20,6 +20,15 @@ jobs:
       ROS_DISTRO: humble
 
     steps:
+
+    - name: Setup emsdk
+      uses: mymindstorm/setup-emsdk@v11
+      with:
+        version: 1.38.40
+      
+    - name: Verify emsdk
+      run: emcc -v      
+
     - name: Create ROS workspace
       run: mkdir -p ros_workspace/src
 
