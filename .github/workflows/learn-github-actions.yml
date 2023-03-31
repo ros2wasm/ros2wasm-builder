@@ -14,15 +14,17 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     steps:
-    - run: mkdir -p ${{ github.workspace }}/src
+    - run: mkdir -p /home/workspace/src
     - uses: actions/checkout@v3
       with:
-        path: ${{ github.workspace }}/src/
+        path: /home/workspace/src/
     - uses: actions/setup-node@v3
       with:
         node-version: '14'
     - run: |
         echo ${{ inputs.package }}
-        echo ${{ github.workspace }}
-        cat ${{ github.workspace }}/src/hello.py
+        ls ${{ github.workspace }}
+        echo 'HOME'
+        ls /home/workspace/src/
+        cat /home/workspace/src/hello.py
         echo 'DONE'
