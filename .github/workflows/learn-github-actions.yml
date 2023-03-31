@@ -3,26 +3,10 @@ run-name: ${{ github.actor }} is learning GitHub Actions
 on:
   workflow_dispatch:
     inputs:
-      logLevel:
-        description: 'Log level'
-        required: true
-        default: 'warning'
-        type: choice
-        options:
-        - info
-        - warning
-        - debug
-      print_tags:
-        description: 'True to print to STDOUT'
-        required: true
-        type: boolean
-      tags:
-        description: 'Test scenario tags'
-        required: true
+      package:
+        description: 'Target package'
         type: string
-      environment:
-        description: 'Environment to run tests against'
-        type: environment
+        default: 'rclcpp'
         required: true
 jobs:
   check-bats-version:
@@ -34,4 +18,4 @@ jobs:
         node-version: '14'
     - run: npm install -g bats
     - run: bats -v
-    - run: echo ${{ inputs.package_name }}
+    - run: echo ${{ inputs.package }}
