@@ -25,5 +25,5 @@ jobs:
         echo ${{ inputs.package }}
         ls ${{ github.workspace }}
         echo 'HOME'
-        ls ros_workspace/src
+        find .
         echo 'DONE'
