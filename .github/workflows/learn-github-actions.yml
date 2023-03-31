@@ -1,9 +1,29 @@
 name: learn-github-actions
 run-name: ${{ github.actor }} is learning GitHub Actions
-on: 
+on:
   workflow_dispatch:
     inputs:
-      package_name: thisPackage
+      logLevel:
+        description: 'Log level'
+        required: true
+        default: 'warning'
+        type: choice
+        options:
+        - info
+        - warning
+        - debug
+      print_tags:
+        description: 'True to print to STDOUT'
+        required: true
+        type: boolean
+      tags:
+        description: 'Test scenario tags'
+        required: true
+        type: string
+      environment:
+        description: 'Environment to run tests against'
+        type: environment
+        required: true
 jobs:
   check-bats-version:
     runs-on: ubuntu-latest
