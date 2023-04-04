@@ -44,6 +44,12 @@ jobs:
         sudo apt-get install python3-vcstool
         vcs import --input https://raw.githubusercontent.com/ros2/ros2/humble/ros2.repos ros_workspace/src
 
+    - name: Remove unsupported packages
+      run: |
+        cd ros_workspace/src
+        while read F; do rm -rf $F; done < myrepo/src/unsupported.txt
+        ls ros2
+
     - name: Create environment
       uses: mamba-org/provision-with-micromamba@main
       with:
