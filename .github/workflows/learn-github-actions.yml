@@ -39,7 +39,9 @@ jobs:
 
     - name: Copy ROS2 packages
       run:  |
-        sudo apt install python3-vcstool -y
+        curl -s https://packagecloud.io/install/repositories/dirk-thomas/vcstool/script.deb.sh | sudo bash
+        sudo apt-get update
+        sudo apt-get install python3-vcstool
         vcs import --input https://raw.githubusercontent.com/ros2/ros2/humble/ros2.repos ros_workspace/src
 
     - name: Create environment
