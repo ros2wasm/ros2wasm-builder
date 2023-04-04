@@ -49,6 +49,9 @@ jobs:
         eval "$(micromamba shell hook --shell=bash)"
         micromamba activate ros-env
 
+    - name: Copy ROS2 packages
+      run:  vcs import --input https://raw.githubusercontent.com/ros2/ros2/humble/ros2.repos ros_workspace/src
+
     - name: Install dependencies
       uses: actions/setup-node@v3
       with:
