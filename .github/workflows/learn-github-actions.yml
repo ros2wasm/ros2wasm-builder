@@ -37,6 +37,11 @@ jobs:
       with:
         path: ros_workspace/src/myrepo
 
+    - name: Copy ROS2 packages
+      run:  |
+        sudo apt install python3-vcstool -y
+        vcs import --input https://raw.githubusercontent.com/ros2/ros2/humble/ros2.repos ros_workspace/src
+
     - name: Create environment
       uses: mamba-org/provision-with-micromamba@main
       with:
@@ -48,11 +53,6 @@ jobs:
       run: |
         eval "$(micromamba shell hook --shell=bash)"
         micromamba activate ros-env
-
-    - name: Copy ROS2 packages
-      run:  |
-        micromamba activate ros-env
-        vcs import --input https://raw.githubusercontent.com/ros2/ros2/humble/ros2.repos ros_workspace/src
 
     - name: Install dependencies
       uses: actions/setup-node@v3
