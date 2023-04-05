@@ -9,7 +9,7 @@ on:
         required: true
       debug_mode:
         description: 'Debug mode'
-        type: bool
+        type: boolean
 run-name: Build up to package ${{ inputs.package }}
 
 
@@ -74,20 +74,15 @@ jobs:
         micromamba activate ros-env
         cd ros_workspace
         if [${{ inputs.debug }}]; then ./src/myrepo/src/blasm.sh -d -v -u ${{ inputs.package }}; else ./src/myrepo/src/blasm.sh -u ${{ inputs.package }}; fi
+        echo "BUILT PACKAGE CONTENTS"
+        ls build/${{ inputs.package }}
 
-    - name: Install dependencies
-      uses: actions/setup-node@v3
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
       with:
-        node-version: '14'
-    - run: |
-        echo ${{ inputs.package }}
-        ls ${{ github.workspace }}
-        echo 'HOME'
-        cat ros_workspace/src/myrepo/src/hello.py
-        cd ros_workspace
-        touch tst.txt
-        echo 'NEW FILE'
-        ls .
-        echo 'MAMAB'
-        which micromamba
-        echo 'DONE'
+        name: ${{ inputs.packages }}-artifacts
+        path: |
+          ros_workspace/build/${{ inputs.package }}/*.js
+          ros_workspace/build/${{ inputs.package }}/*.wasm
+          ros_workspace/build/${{ inputs.package }}/*.html
+      
