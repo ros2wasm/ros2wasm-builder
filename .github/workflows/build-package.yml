@@ -64,6 +64,8 @@ jobs:
       run: |
         eval "$(micromamba shell hook --shell=bash)"
         micromamba activate ros-env
+        cd ros_workspace
+        ./src/myrepo/src/blasm.sh -d -v -u ${{ inputs.package }}
 
     - name: Install dependencies
       uses: actions/setup-node@v3

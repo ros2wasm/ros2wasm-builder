@@ -13,6 +13,7 @@ ros2/rmw_connextdds
 ros2/rmw_dds_common
 ros2/rmw_fastrtps
 ros2/rosidl_dds
+ros2/rosidl_python
 ros2/rviz
 ros2/console_bridge_vendor
 ros2/performance_test_fixture
