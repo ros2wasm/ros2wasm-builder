@@ -5,11 +5,12 @@ on:
       package:
         description: 'Target package'
         type: string
-        default: 'rclcpp'
+        default: 'test_pubsub'
         required: true
       debug_mode:
         description: 'Debug mode'
         type: boolean
+        default: false
 run-name: Build up to package ${{ inputs.package }}
 
 
@@ -74,8 +75,6 @@ jobs:
         micromamba activate ros-env
         cd ros_workspace
         if [${{ inputs.debug }}]; then ./src/myrepo/src/blasm.sh -d -v -u ${{ inputs.package }}; else ./src/myrepo/src/blasm.sh -u ${{ inputs.package }}; fi
-        echo "BUILT PACKAGE CONTENTS"
-        ls build/${{ inputs.package }}
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v3

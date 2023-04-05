@@ -131,3 +131,4 @@ colcon build \
         -DFORCE_BUILD_VENDOR_PKG=ON \
         -DPYBIND11_PYTHONLIBS_OVERWRITE=OFF \
         -DPython3_EXECUTABLE=${CONDA_PREFIX}/bin/python \
+        -Wno-dev
