@@ -10,7 +10,6 @@ on:
       debug_mode:
         description: 'Debug mode'
         type: bool
-        default: false
 run-name: Build up to package ${{ inputs.package }}
 
 
