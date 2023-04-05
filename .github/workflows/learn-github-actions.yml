@@ -7,9 +7,6 @@ on:
         type: string
         default: 'rclcpp'
         required: true
-  pull_request:
-    inputs:
-      package: 'rclcpp'
 run-name: Build up to package ${{ inputs.package }}
 
 
