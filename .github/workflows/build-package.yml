@@ -53,6 +53,13 @@ jobs:
         cd ros_workspace/src
         while read F; do rm -rf $F; done < myrepo/src/unsupported.txt
 
+    - name: Apply patches
+      run: |
+        cd ros_workspace/src/ros2/rcutils
+        echo "WORKSPACE: ${GITHUB_WORKSPACE}"
+        git apply ${GITHUB_WORKSPACE}/ros_workspace/src/myrepo/src/rcutils.patch
+        echo "PATCH APPLIED"
+
     - name: Create environment
       uses: mamba-org/provision-with-micromamba@main
       with:
