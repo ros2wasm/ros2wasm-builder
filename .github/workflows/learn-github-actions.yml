@@ -46,6 +46,7 @@ jobs:
         sudo apt-get update
         sudo apt-get install python3-vcstool
         vcs import --input https://raw.githubusercontent.com/ros2/ros2/humble/ros2.repos ros_workspace/src
+        vcs import --input ros_workspace/src/myrepo/src/repos.yaml ros_workspace/src
 
     - name: Remove unsupported packages
       run: |
