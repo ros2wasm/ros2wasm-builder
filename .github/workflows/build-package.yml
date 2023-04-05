@@ -29,9 +29,10 @@ jobs:
     - name: Verify emsdk
       run: |
         emcc -v
-        printenv | grep EMSDK 
+        find $EMSDK -iname "upstream"
+        echo "Find upstream"
 
-    - name: Create ROS workspace
+    - name: Create ROS2 workspace
       run: mkdir -p ros_workspace/src
 
     - name: Install rmw_wasm
