@@ -3,3 +3,7 @@ repositories:
     type: git
     url: https://github.com/ihuicatl/rmw_wasm.git
     version: main
+  dynmsg:
+    type: git
+    url: git@github.com:osrf/dynamic_message_introspection.git
+    version: main
