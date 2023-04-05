@@ -27,7 +27,9 @@ jobs:
         version: 3.1.27
       
     - name: Verify emsdk
-      run: emcc -v      
+      run: |
+        emcc -v
+        printenv | grep EMSDK 
 
     - name: Create ROS workspace
       run: mkdir -p ros_workspace/src
@@ -57,7 +59,7 @@ jobs:
         environment-name: ros-env
         micromamba-version: '1.4.1'
     
-    - name: Activate environment
+    - name: Activate environment and build package
       run: |
         eval "$(micromamba shell hook --shell=bash)"
         micromamba activate ros-env
