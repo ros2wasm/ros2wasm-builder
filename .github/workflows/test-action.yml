@@ -14,7 +14,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Use action
-        uses: ./github/actions/action.yml
+        uses: ./.github/actions/action.yml
 
       - name: After action
         run: echo "All done"
