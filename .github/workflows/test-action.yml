@@ -12,10 +12,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
-        run: ls -al
 
       - name: Use action
-        uses: ./action.yml
+        uses: ./github/actions/action.yml
 
       - name: After action
         run: echo "All done"
