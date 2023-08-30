@@ -1,5 +1,5 @@
-name: simple-action
-description: Basic action
+name: 'simpleaction'
+description: 'Basic action'
 runs:
   using: composite
     steps:
