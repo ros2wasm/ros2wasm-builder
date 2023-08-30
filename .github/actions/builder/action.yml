@@ -13,9 +13,6 @@ inputs:
 runs:
   using: "composite"
     steps:
-    - shell: bash -eux {0}
-      id: init
-      run: echo "INIT"
 
     - name: Setup emsdk
       uses: mymindstorm/setup-emsdk@v11
