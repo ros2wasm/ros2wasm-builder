@@ -1,9 +1,6 @@
 name: ros2wasm-builder
 description: Cross-compiles ROS 2 packages to WASM
 inputs:
-  token:
-    description: "GitHub access token"
-    required: true
   package:
     description: 'Target package'
     type: string
