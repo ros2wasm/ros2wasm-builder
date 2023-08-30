@@ -13,12 +13,6 @@ inputs:
 runs:
   using: "composite"
 
-    env:
-      TARGET_PLATFORM: emscripten-32
-      RMW_IMPLEMENTATION: rmw_wasm
-      ROS_VERSION: 2
-      ROS_DISTRO: humble
-
     steps:
 
     - name: Setup emsdk
