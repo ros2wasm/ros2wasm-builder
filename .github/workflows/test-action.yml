@@ -10,8 +10,10 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Use action
+      - name: Checkout code
         uses: actions/checkout@v3
+
+      - name: Test action
         uses: ./.github/actions/builder/action.yml
         with:
           package: 'tst_pubsub'
