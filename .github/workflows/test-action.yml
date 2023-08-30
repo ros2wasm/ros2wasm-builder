@@ -12,7 +12,7 @@ jobs:
     steps:
       - name: Use action
         uses: actions/checkout@v3
-        uses: ./.github/actions/builder/
+        uses: ./.github/actions/builder/action.yml
         with:
           package: 'tst_pubsub'
           debug_mode: false

@@ -10,7 +10,6 @@ inputs:
     description: 'Debug mode'
     type: boolean
     default: false
-
 runs:
   using: "composite"
 
