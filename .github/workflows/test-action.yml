@@ -16,11 +16,16 @@ jobs:
       ROS_DISTRO: humble
 
     steps:
-      - name: Checkout code
+      # Clone this repo
+      - name: Checkout
         uses: actions/checkout@v3
 
-      - name: Simple action
-        uses: ./.github/actions/simple/
+      # Simple checkout
+      - name: Checkout simple action
+        uses: ./
+      - name: Verify simple action
+        shell: bash
+        run: cat ./simple-action.yml
 
       - name: Test action
         uses: ./.github/actions/builder/
