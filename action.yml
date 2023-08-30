@@ -14,9 +14,6 @@ inputs:
     default: false
 run-name: Build up to package ${{ inputs.package }}
 
-outputs:
-  artifacts: 
-
 
 jobs:
   setup:
