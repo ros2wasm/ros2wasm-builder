@@ -20,7 +20,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Test action
-        uses: .github/actions/builder/
+        uses: ./.github/actions/builder/
         with:
           package: 'tst_pubsub'
           debug_mode: false
