@@ -1,17 +1,21 @@
-name: build-package
-on:
-  workflow_dispatch:
-    inputs:
-      package:
-        description: 'Target package'
-        type: string
-        default: 'test_pubsub'
-        required: true
-      debug_mode:
-        description: 'Debug mode'
-        type: boolean
-        default: false
+name: ros2wasm-builder
+author: Isabel Paredes
+description: Cross-compiles ROS 2 packages to WASM
+
+inputs:
+  package:
+    description: 'Target package'
+    type: string
+    default: 'test_pubsub'
+    required: true
+  debug_mode:
+    description: 'Debug mode'
+    type: boolean
+    default: false
 run-name: Build up to package ${{ inputs.package }}
+
+outputs:
+  artifacts: 
 
 
 jobs:
