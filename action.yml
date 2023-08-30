@@ -1,5 +1,17 @@
-name: 'simpleaction'
-description: 'Basic action'
+name: ros2wasm-builder
+description: "Cross-compiles ROS 2 packages to WASM"
+
+inputs:
+  package:
+    description: "Target package"
+    type: string
+    default: "test_pubsub"
+    required: true
+  debug_mode:
+    description: "Debug mode"
+    type: boolean
+    default: false
+
 runs:
   using: composite
   steps:
