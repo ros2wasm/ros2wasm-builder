@@ -1,0 +1,7 @@
+name: simple-action
+description: "Basic action"
+runs:
+using: composite
+  steps:
+    - name: Init simple action
+      run: echo "Initting simple action"

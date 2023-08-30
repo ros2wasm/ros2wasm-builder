@@ -19,6 +19,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Simple action
+        uses: ./.github/actions/simple/
+
       - name: Test action
         uses: ./.github/actions/builder/
         with:
