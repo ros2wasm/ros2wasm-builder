@@ -3,7 +3,7 @@ on:
   push:
     branches: main
   pull_request:
-    branches: '*'
+    branches: "*"
 
 jobs:
   test-action:
@@ -22,7 +22,7 @@ jobs:
       - name: Test action
         uses: ./.github/actions/builder/
         with:
-          package: 'tst_pubsub'
+          package: "tst_pubsub"
           debug_mode: false
 
       - name: After action

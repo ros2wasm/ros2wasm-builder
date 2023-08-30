@@ -2,12 +2,12 @@ name: ros2wasm-builder
 description: "Cross-compiles ROS 2 packages to WASM"
 inputs:
   package:
-    description: 'Target package'
+    description: "Target package"
     type: string
-    default: 'test_pubsub'
+    default: "test_pubsub"
     required: true
   debug_mode:
-    description: 'Debug mode'
+    description: "Debug mode"
     type: boolean
     default: false
 runs:
@@ -16,7 +16,7 @@ runs:
     - shell: bash -eux {0}
       id: init
       run: echo "INIT"
-      
+
     - name: Setup emsdk
       uses: mymindstorm/setup-emsdk@v11
       with:
@@ -59,7 +59,7 @@ runs:
       with:
         environment-file: ros-workspace/src/ros2wasm-builder/env.yaml
         environment-name: ros-env
-        micromamba-version: '1.4.1'
+        micromamba-version: "1.4.1"
     
     - name: Activate environment and build package
       run: |
