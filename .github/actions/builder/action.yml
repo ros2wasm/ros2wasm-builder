@@ -1,7 +1,5 @@
 name: ros2wasm-builder
-author: Isabel Paredes
 description: Cross-compiles ROS 2 packages to WASM
-
 inputs:
   package:
     description: 'Target package'
@@ -12,12 +10,11 @@ inputs:
     description: 'Debug mode'
     type: boolean
     default: false
+    
 run-name: Build up to package ${{ inputs.package }}
+runs:
+  using: "composite"
 
-
-jobs:
-  setup:
-    runs-on: ubuntu-latest
     env:
       TARGET_PLATFORM: emscripten-32
       RMW_IMPLEMENTATION: rmw_wasm
