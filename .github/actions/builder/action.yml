@@ -1,15 +1,15 @@
 name: ros2wasm-builder
 description: "Cross-compiles ROS 2 packages to WASM"
-inputs:
-  package:
-    description: 'Target package'
-    type: string
-    default: 'test_pubsub'
-    required: true
-  debug_mode:
-    description: 'Debug mode'
-    type: boolean
-    default: false
+# inputs:
+#   package:
+#     description: 'Target package'
+#     type: string
+#     default: 'test_pubsub'
+#     required: true
+#   debug_mode:
+#     description: 'Debug mode'
+#     type: boolean
+#     default: false
 
 run-name: Build up to package ${{ inputs.package }}
 runs:

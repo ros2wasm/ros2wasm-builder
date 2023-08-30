@@ -17,6 +17,7 @@ jobs:
         uses: ./.github/actions/builder/
         with:
           package: 'tst_pubsub'
+          debug_mode: false
 
       - name: After action
         run: echo "All done"
