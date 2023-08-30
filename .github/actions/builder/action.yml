@@ -1,5 +1,5 @@
 name: ros2wasm-builder
-description: Cross-compiles ROS 2 packages to WASM
+description: "Cross-compiles ROS 2 packages to WASM"
 inputs:
   package:
     description: 'Target package'
