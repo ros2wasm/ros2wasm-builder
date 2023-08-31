@@ -61,12 +61,6 @@ runs:
         repository: 'ihuicatl/rmw_wasm'
         path: ros-workspace/src/rmw_wasm
 
-    - name: Verify middleware is available
-      shell: bash -eux {0}
-      run: |
-        ls -al ros-workspace/src
-        find ros-workspace/src -iname "*rcutils*"
-
     - name: Apply patches
       shell: bash -eux {0}
       run: |
@@ -77,7 +71,6 @@ runs:
       shell: bash -eux {0}
       run: |
         cp ${GITHUB_WORKSPACE}/env.yaml ros-workspace/
-        cat ros-workspace/env.yaml
 
     - name: Create environment
       uses: mamba-org/setup-micromamba@v1
@@ -89,7 +82,6 @@ runs:
     - name: Build package
       shell: bash -el {0}
       run: |
-        printenv | grep CONDA
         cd ros-workspace
         if [${{ inputs.debug }}]; then ${GITHUB_WORKSPACE}/blasm.sh -d -v -u ${{ inputs.package }}; else ${GITHUB_WORKSPACE}/blasm.sh -u ${{ inputs.package }}; fi
 
@@ -101,4 +93,3 @@ runs:
           ros-workspace/build/${{ inputs.package }}/*.js
           ros-workspace/build/${{ inputs.package }}/*.wasm
           ros-workspace/build/${{ inputs.package }}/*.html
-

@@ -1,5 +1,5 @@
 name: test-action
-on: 
+on:
   push:
     branches: main
   pull_request:
@@ -14,17 +14,13 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      # Simple checkout
       - name: Verify action
         shell: bash
         run: cat ./action.yml
 
+      # Runs action and builds default package
       - name: Test action
         uses: ./
         with:
           package: "test_wasm"
           debug_mode: false
-
-      - name: After action
-        run: echo "All done"
-
