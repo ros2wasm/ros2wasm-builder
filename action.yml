@@ -17,4 +17,4 @@ runs:
   steps:
     - name: Init simple action
       shell: bash -eux {0}
-      run: echo ${ inputs.package }
+      run: echo ${{ inputs.package }}
