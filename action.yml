@@ -5,7 +5,7 @@ inputs:
   package:
     description: "Target package"
     type: string
-    default: "test_pubsub"
+    default: "rmw_wasm_cpp"
     required: true
   ros_distro:
     description: "ROS 2 distribution"
@@ -54,6 +54,15 @@ runs:
       run: |
         cd ros-workspace/src
         while read F; do rm -rf $F; done < ${GITHUB_WORKSPACE}/unsupported.txt
+
+    - name: Add rmw_wasm middleware
+      uses: actions/checkout@v3
+      repository: 'ihuicatl/rmw_wasm'
+      path: ros-workspace/src
+
+    - name: Verify middleware is available
+      shell: bash -eux {0}
+      run: ls -al ros-workspace/src | grep rmw
 
     - name: Apply patches
       shell: bash -eux {0}
