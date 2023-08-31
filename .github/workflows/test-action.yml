@@ -30,7 +30,7 @@ jobs:
       - name: Test action
         uses: ./
         with:
-          package: "tst_pubsub"
+          package: "hello_package"
           debug_mode: false
 
       - name: After action
