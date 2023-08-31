@@ -72,11 +72,12 @@ runs:
       with:
         environment-file: ros-workspace/env.yaml
         init-shell: bash
+        cache-environment: true
 
     - name: Build package
-      shell: bash -eux {0}
+      shell: bash -el {0}
       run: |
-        micromamba env list
+        printenv | grep CONDA
         cd ros-workspace
         if [${{ inputs.debug }}]; then ${GITHUB_WORKSPACE}/blasm.sh -d -v -u ${{ inputs.package }}; else ${GITHUB_WORKSPACE}/blasm.sh -u ${{ inputs.package }}; fi
 
