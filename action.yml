@@ -71,7 +71,6 @@ runs:
         git apply ${GITHUB_WORKSPACE}/rcutils.patch
 
     - name: Create environment
-      shell: bash -eux {0}
       uses: mamba-org/provision-with-micromamba@main
       with:
         environment-file: ros-workspace/src/ros2wasm-builder/env.yaml
