@@ -35,11 +35,13 @@ runs:
         version: 3.1.27
 
     - name: Verify emsdk
+      shell: bash -eux {0}
       run: |
         emcc -v
         find $EMSDK -iname "upstream"
 
     - name: Create ROS 2 workspace
+      shell: bash -eux {0}
       run: mkdir -p ros-workspace/src
 
     # - name: Install ros2wasm-builder
@@ -48,6 +50,7 @@ runs:
     #     path: ros-workspace/src/ros2wasm-builder
 
     - name: Copy ROS 2 ${{ inputs.ros_distro }} packages
+      shell: bash -eux {0}
       run:  |
         curl -s https://packagecloud.io/install/repositories/dirk-thomas/vcstool/script.deb.sh | sudo bash
         sudo apt-get update
@@ -56,16 +59,19 @@ runs:
         vcs import --input ./repos.yaml ros-workspace/src
 
     - name: Remove unsupported packages
+      shell: bash -eux {0}
       run: |
         cd ros-workspace/src
         while read F; do rm -rf $F; done < ../unsupported.txt
 
     - name: Apply patches
+      shell: bash -eux {0}
       run: |
         cd ros-workspace/src/ros2/rcutils
         git apply ${GITHUB_WORKSPACE}/rcutils.patch
 
     - name: Create environment
+      shell: bash -eux {0}
       uses: mamba-org/provision-with-micromamba@main
       with:
         environment-file: ros-workspace/src/ros2wasm-builder/env.yaml
@@ -73,6 +79,7 @@ runs:
         micromamba-version: "1.4.1"
 
     - name: Activate environment and build package
+      shell: bash -eux {0}
       run: |
         eval "$(micromamba shell hook --shell=bash)"
         micromamba activate ros-env
