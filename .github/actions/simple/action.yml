@@ -1,0 +1,8 @@
+name: simple-action
+description: Basic action
+runs:
+  using: composite
+    steps:
+      - name: Init simple action
+        shell: bash -eux {0}
+        run: echo hello

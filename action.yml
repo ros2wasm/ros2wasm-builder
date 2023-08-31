@@ -1,0 +1,95 @@
+name: ros2wasm-builder
+description: "Cross-compiles ROS 2 packages to WASM"
+
+inputs:
+  package:
+    description: "Target package"
+    type: string
+    default: "rmw_wasm_cpp"
+    required: true
+  ros_distro:
+    description: "ROS 2 distribution"
+    type: string
+    default: "humble"
+    required: true
+  debug_mode:
+    description: "Debug mode"
+    type: boolean
+    default: false
+
+runs:
+  using: composite
+
+  steps:
+    - name: Init simple action
+      shell: bash -eux {0}
+      run: echo "Packaging ${{ inputs.package }} for ${{ inputs.ros_distro }}"
+
+    - name: Setup emsdk
+      uses: mymindstorm/setup-emsdk@v11
+      with:
+        version: 3.1.27
+
+    - name: Verify emsdk
+      shell: bash -eux {0}
+      run: |
+        emcc -v
+        find $EMSDK -iname "upstream"
+
+    - name: Create ROS 2 workspace
+      shell: bash -eux {0}
+      run: mkdir -p ros-workspace/src
+
+    - name: Copy ROS 2 ${{ inputs.ros_distro }} packages
+      shell: bash -eux {0}
+      run:  |
+        curl -s https://packagecloud.io/install/repositories/dirk-thomas/vcstool/script.deb.sh | sudo bash
+        sudo apt-get update
+        sudo apt-get install python3-vcstool
+        vcs import --input https://raw.githubusercontent.com/ros2/ros2/humble/ros2.repos ros-workspace/src
+        vcs import --input ./repos.yaml ros-workspace/src
+
+    - name: Remove unsupported packages
+      shell: bash -eux {0}
+      run: |
+        cd ros-workspace/src
+        while read F; do rm -rf $F; done < ${GITHUB_WORKSPACE}/unsupported.txt
+
+    - name: Add rmw_wasm middleware
+      uses: actions/checkout@v3
+      with:
+        repository: 'ihuicatl/rmw_wasm'
+        path: ros-workspace/src/rmw_wasm
+
+    - name: Apply patches
+      shell: bash -eux {0}
+      run: |
+        cd ros-workspace/src/ros2/rcutils
+        git apply ${GITHUB_WORKSPACE}/rcutils.patch
+
+    - name: Copy environment file to workspace
+      shell: bash -eux {0}
+      run: |
+        cp ${GITHUB_WORKSPACE}/env.yaml ros-workspace/
+
+    - name: Create environment
+      uses: mamba-org/setup-micromamba@v1
+      with:
+        environment-file: ros-workspace/env.yaml
+        init-shell: bash
+        cache-environment: true
+
+    - name: Build package
+      shell: bash -el {0}
+      run: |
+        cd ros-workspace
+        if [${{ inputs.debug }}]; then ${GITHUB_WORKSPACE}/blasm.sh -d -v -u ${{ inputs.package }}; else ${GITHUB_WORKSPACE}/blasm.sh -u ${{ inputs.package }}; fi
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ inputs.package }}-artifacts
+        path: |
+          ros-workspace/build/${{ inputs.package }}/*.js
+          ros-workspace/build/${{ inputs.package }}/*.wasm
+          ros-workspace/build/${{ inputs.package }}/*.html

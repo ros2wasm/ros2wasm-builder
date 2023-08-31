@@ -63,13 +63,13 @@ while getopts "hcdvpu:s:i:" option; do
         h) # Display help
             Help
             exit;;
-        
+
         c) # Clean workspace
             [[ -d "${PWD}/install" ]] && rm -rf "${PWD}/install"
             [[ -d "${PWD}/build" ]]   && rm -rf "${PWD}/build"
             [[ -d "${PWD}/log" ]]     && rm -rf "${PWD}/log"
             exit;;
-        
+
         d) # Activate cmake debug
             debug_mode=ON
             echo "[BLASM]: CMake debug mode activated.";;
