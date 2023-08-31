@@ -61,10 +61,16 @@ runs:
         cd ros-workspace/src/ros2/rcutils
         git apply ${GITHUB_WORKSPACE}/rcutils.patch
 
+    - name: Copy environment file to workspace
+      shell: bash -eux {0}
+      run: |
+        cp ${GITHUB_WORKSPACE}/env.yaml ros-workspace/
+        cat ros-workspace/env.yaml
+
     - name: Create environment
       uses: mamba-org/setup-micromamba@v1
       with:
-        environment-file: ${GITHUB_WORKSPACE}/env.yaml
+        environment-file: ros-workspace/env.yaml
         init-shell: bash
 
     - name: Build package
