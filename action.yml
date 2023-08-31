@@ -62,7 +62,7 @@ runs:
       shell: bash -eux {0}
       run: |
         cd ros-workspace/src
-        while read F; do rm -rf $F; done < ../unsupported.txt
+        while read F; do rm -rf $F; done < ${GITHUB_WORKSPACE}/unsupported.txt
 
     - name: Apply patches
       shell: bash -eux {0}
@@ -83,7 +83,7 @@ runs:
         eval "$(micromamba shell hook --shell=bash)"
         micromamba activate ros-env
         cd ros-workspace
-        if [${{ inputs.debug }}]; then ../blasm.sh -d -v -u ${{ inputs.package }}; else ../blasm.sh -u ${{ inputs.package }}; fi
+        if [${{ inputs.debug }}]; then ${GITHUB_WORKSPACE}/blasm.sh -d -v -u ${{ inputs.package }}; else ${GITHUB_WORKSPACE}/blasm.sh -u ${{ inputs.package }}; fi
 
     - name: Upload artifactsk
       uses: actions/upload-artifact@v3
