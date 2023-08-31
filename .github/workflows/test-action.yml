@@ -24,7 +24,7 @@ jobs:
       - name: Test action
         uses: ./
         with:
-          package: "hello_package"
+          package: "tst_pubsub"
           debug_mode: false
 
       - name: After action

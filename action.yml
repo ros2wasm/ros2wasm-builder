@@ -27,6 +27,64 @@ runs:
   steps:
     - name: Init simple action
       shell: bash -eux {0}
+      run: echo "Packaging ${{ inputs.package }} for ${{ inputs.ros_distro }}"
+
+    - name: Setup emsdk
+      uses: mymindstorm/setup-emsdk@v11
+      with:
+        version: 3.1.27
+
+    - name: Verify emsdk
       run: |
-        echo "ROS Distribution"
-        echo ${{ inputs.ros_distro }}
+        emcc -v
+        find $EMSDK -iname "upstream"
+
+    - name: Create ROS 2 workspace
+      run: mkdir -p ros-workspace/src
+
+    # - name: Install ros2wasm-builder
+    #   uses: actions/checkout@v3
+    #   with:
+    #     path: ros-workspace/src/ros2wasm-builder
+
+    - name: Copy ROS 2 ${{ inputs.ros_distro }} packages
+      run:  |
+        curl -s https://packagecloud.io/install/repositories/dirk-thomas/vcstool/script.deb.sh | sudo bash
+        sudo apt-get update
+        sudo apt-get install python3-vcstool
+        vcs import --input https://raw.githubusercontent.com/ros2/ros2/humble/ros2.repos ros-workspace/src
+        vcs import --input ./repos.yaml ros-workspace/src
+
+    - name: Remove unsupported packages
+      run: |
+        cd ros-workspace/src
+        while read F; do rm -rf $F; done < ../unsupported.txt
+
+    - name: Apply patches
+      run: |
+        cd ros-workspace/src/ros2/rcutils
+        git apply ${GITHUB_WORKSPACE}/rcutils.patch
+
+    - name: Create environment
+      uses: mamba-org/provision-with-micromamba@main
+      with:
+        environment-file: ros-workspace/src/ros2wasm-builder/env.yaml
+        environment-name: ros-env
+        micromamba-version: "1.4.1"
+
+    - name: Activate environment and build package
+      run: |
+        eval "$(micromamba shell hook --shell=bash)"
+        micromamba activate ros-env
+        cd ros-workspace
+        if [${{ inputs.debug }}]; then ../blasm.sh -d -v -u ${{ inputs.package }}; else ../blasm.sh -u ${{ inputs.package }}; fi
+
+    - name: Upload artifactsk
+      uses: actions/upload-artifact@v3
+      with:
+        name: ${{ inputs.package }}-artifacts
+        path: |
+          ros-workspace/build/${{ inputs.package }}/*.js
+          ros-workspace/build/${{ inputs.package }}/*.wasm
+          ros-workspace/build/${{ inputs.package }}/*.html
+
