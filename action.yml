@@ -64,7 +64,7 @@ runs:
     - name: Verify middleware is available
       shell: bash -eux {0}
       run: |
-        ls -al ros-workspace/src | grep wasm
+        ls -al ros-workspace/src
         find ros-workspace/src -iname "*rcutils*"
 
     - name: Apply patches
