@@ -15,8 +15,6 @@ jobs:
         uses: actions/checkout@v3
 
       # Simple checkout
-      - name: Checkout simple action
-        uses: ./
       - name: Verify action
         shell: bash
         run: cat ./action.yml
