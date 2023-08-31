@@ -59,7 +59,7 @@ runs:
       uses: actions/checkout@v3
       with:
         repository: 'ihuicatl/rmw_wasm'
-        path: ros-workspace/src
+        path: ros-workspace/src/rmw_wasm
 
     - name: Verify middleware is available
       shell: bash -eux {0}
