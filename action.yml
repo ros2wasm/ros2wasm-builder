@@ -57,8 +57,9 @@ runs:
 
     - name: Add rmw_wasm middleware
       uses: actions/checkout@v3
-      repository: 'ihuicatl/rmw_wasm'
-      path: ros-workspace/src
+      with:
+        repository: 'ihuicatl/rmw_wasm'
+        path: ros-workspace/src
 
     - name: Verify middleware is available
       shell: bash -eux {0}
