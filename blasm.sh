@@ -47,12 +47,12 @@ InstallPython()
 #-------------------------------------------------------------------------------
 VERBOSE=0
 EMSDK_VERBOSE=0
+RMW_IMPLEMENTATION="rmw_wasm_cpp"
 verbose_args=""
 package_args=""
 package_ignore=""
 debug_mode=OFF
-
-export RMW_IMPLEMENTATION="rmw_wasm_cpp"
+build_type="Release"
 
 #-------------------------------------------------------------------------------
 # OPTIONS
@@ -72,6 +72,7 @@ while getopts "hcdvpu:s:i:" option; do
 
         d) # Activate cmake debug
             debug_mode=ON
+            build_type=Debug
             echo "[BLASM]: CMake debug mode activated.";;
 
         v) # Make verbose
@@ -129,6 +130,8 @@ colcon build \
         -DCMAKE_CROSSCOMPILING=TRUE \
         -DCMAKE_FIND_DEBUG_MODE=${debug_mode} \
         -DFORCE_BUILD_VENDOR_PKG=ON \
-        -DPYBIND11_PYTHONLIBS_OVERWRITE=OFF \
+        -DCMAKE_BUILD_TYPE=${build_type} \
+        -DCMAKE_C_FLAGS="${CMAKE_C_FLAGS}" \
+        -DCMAKE_CXX_FLAGS="${CMAKE_CXX_FLAGS}" \
         -DPython3_EXECUTABLE=${CONDA_PREFIX}/bin/python \
         -Wno-dev
