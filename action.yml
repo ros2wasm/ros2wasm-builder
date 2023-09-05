@@ -28,7 +28,7 @@ runs:
     - name: Setup emsdk
       uses: mymindstorm/setup-emsdk@v11
       with:
-        version: 3.1.27
+        version: 3.1.45
 
     - name: Verify emsdk
       shell: bash -eux {0}
