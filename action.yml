@@ -84,6 +84,4 @@ runs:
       with:
         name: ${{ inputs.package }}-artifacts
         path: |
-          ros-workspace/build/${{ inputs.package }}/*.js
-          ros-workspace/build/${{ inputs.package }}/*.wasm
-          ros-workspace/build/${{ inputs.package }}/*.html
+          ros-workspace/build/${{ inputs.package }}/*
