@@ -40,7 +40,7 @@ runs:
       shell: bash -eux {0}
       run: mkdir -p ros-workspace/src
 
-    - name: Copy ROS 2 ${{ inputs.ros_distro }} packages
+    - name: Copy ROS 2 ${{ inputs.ros_distro }} packages and middleware
       shell: bash -eux {0}
       run:  |
         curl -s https://packagecloud.io/install/repositories/dirk-thomas/vcstool/script.deb.sh | sudo bash
@@ -54,12 +54,6 @@ runs:
       run: |
         cd ros-workspace/src
         while read F; do rm -rf $F; done < ${GITHUB_WORKSPACE}/unsupported.txt
-
-    - name: Add rmw_wasm middleware
-      uses: actions/checkout@v3
-      with:
-        repository: 'ihuicatl/rmw_wasm'
-        path: ros-workspace/src/rmw_wasm
 
     - name: Apply patches
       shell: bash -eux {0}
