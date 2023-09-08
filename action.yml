@@ -61,6 +61,13 @@ runs:
         cd ros-workspace/src/ros2/rcutils
         git apply ${GITHUB_WORKSPACE}/rcutils.patch
 
+    - name: Install additional packages
+      shell: bash -eux {0}
+      if: ${{ inputs.ros_distro == 'iron' }}
+      run: |
+        echo 'Installing lttng'
+        sudo apt install -y liblttng-ust-dev lttng-tools
+
     - name: Copy environment file to workspace
       shell: bash -eux {0}
       run: |
