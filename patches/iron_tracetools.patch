@@ -1,0 +1,13 @@
+diff --git a/tracetools/CMakeLists.txt b/tracetools/CMakeLists.txt
+index cd829d5..56526cc 100644
+--- a/tracetools/CMakeLists.txt
++++ b/tracetools/CMakeLists.txt
+@@ -23,7 +23,7 @@ else()
+   set(STATUS_CHECKING_TOOL_DEFAULT ON)
+ endif()
+ option(TRACETOOLS_DISABLED "Explicitly disable support for tracing" ${DISABLED_DEFAULT})
+-option(TRACETOOLS_TRACEPOINTS_EXCLUDED "Do not include tracepoints" OFF)
++option(TRACETOOLS_TRACEPOINTS_EXCLUDED "Do not include tracepoints" ON)
+ option(TRACETOOLS_NO_RDYNAMIC "Disable export of -rdynamic link flag" OFF)
+ option(TRACETOOLS_STATUS_CHECKING_TOOL "Enable the status checking tool" ${STATUS_CHECKING_TOOL_DEFAULT})
+ 
