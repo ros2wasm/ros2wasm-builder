@@ -50,31 +50,31 @@ runs:
         sudo apt-get update
         sudo apt-get install python3-vcstool
         vcs import --input https://raw.githubusercontent.com/ros2/ros2/${{ inputs.ros_distro }}/ros2.repos ros-workspace/src
-        vcs import --input ./repos.yaml ros-workspace/src
+        vcs import --input ${{ github.action_path }}/repos.yaml ros-workspace/src
 
     - name: Remove unsupported packages
       shell: bash -eux {0}
       run: |
         cd ros-workspace/src
-        while read F; do rm -rf $F; done < ${GITHUB_WORKSPACE}/unsupported.txt
+        while read F; do rm -rf $F; done < ${{ github.action_path }}/unsupported.txt
 
     - name: Apply patches
       shell: bash -eux {0}
       run: |
         cd ros-workspace/src/ros2/rcutils
-        git apply ${GITHUB_WORKSPACE}/patches/rcutils.patch
+        git apply ${{ github.action_path }}/patches/rcutils.patch
 
     - name: Install patches for Iron only
       shell: bash -eux {0}
       if: ${{ inputs.ros_distro == 'iron' }}
       run: |
         cd ros-workspace/src/ros2/ros2_tracing/tracetools
-        git apply ${GITHUB_WORKSPACE}/patches/iron_tracetools.patch
+        git apply ${{ github.action_path }}/patches/iron_tracetools.patch
 
     - name: Copy environment file to workspace
       shell: bash -eux {0}
       run: |
-        cp ${GITHUB_WORKSPACE}/env.yaml ros-workspace/
+        cp ${{ github.action_path }}/env.yaml ros-workspace/
 
     - name: Create environment
       uses: mamba-org/setup-micromamba@v1
@@ -87,7 +87,7 @@ runs:
       shell: bash -el {0}
       run: |
         cd ros-workspace
-        if [${{ inputs.debug }}]; then ${GITHUB_WORKSPACE}/blasm.sh -d -v -u ${{ inputs.package }}; else ${GITHUB_WORKSPACE}/blasm.sh -u ${{ inputs.package }}; fi
+        if [${{ inputs.debug }}]; then ${{ github.action_path }}/blasm.sh -d -v -u ${{ inputs.package }}; else ${GITHUB_WORKSPACE}/blasm.sh -u ${{ inputs.package }}; fi
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
