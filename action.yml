@@ -87,7 +87,7 @@ runs:
       shell: bash -el {0}
       run: |
         cd ros-workspace
-        if [${{ inputs.debug }}]; then ${{ github.action_path }}/blasm.sh -d -v -u ${{ inputs.package }}; else ${GITHUB_WORKSPACE}/blasm.sh -u ${{ inputs.package }}; fi
+        if [${{ inputs.debug }}]; then ${{ github.action_path }}/blasm.sh -d -v -u ${{ inputs.package }}; else ${{ github.action_path }}/blasm.sh -u ${{ inputs.package }}; fi
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
