@@ -6,7 +6,7 @@ This action cross-compiles a ROS 2 package to WebAssembly and uploads the built 
 
 ```yaml
 - steps:
-    uses: actions/ros2wasm-builder@v1
+    uses: ihuicatl/ros2wasm-builder@0.1.0
     with:
         package: 'the_target_package'
         ros_distro: 'humble'
