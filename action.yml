@@ -92,3 +92,5 @@ runs:
         name: ${{ inputs.package }}-artifacts
         path: |
           ros-workspace/build/${{ inputs.package }}/*
+          ros-workspace/install/share/${{ inputs.package }}/*
+          ros-workspace/install/include/${{ inputs.package }}/*
