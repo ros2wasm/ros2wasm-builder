@@ -19,6 +19,11 @@ inputs:
     description: "Debug mode"
     type: boolean
     default: false
+  artifacts:
+    description: "Upload package | all"
+    type: string
+    default: "package"
+    required: true
 
 runs:
   using: composite
@@ -89,7 +94,8 @@ runs:
         cd ros-workspace
         if [${{ inputs.debug }}]; then ${{ github.action_path }}/blasm.sh -d -v -u ${{ inputs.package }}; else ${{ github.action_path }}/blasm.sh -u ${{ inputs.package }}; fi
 
-    - name: Upload artifacts
+    - name: Upload artifacts for package
+      if: ${{ inputs.artifacts == "package" }}
       uses: actions/upload-artifact@v3
       with:
         name: ${{ inputs.package }}-artifacts
@@ -97,3 +103,12 @@ runs:
           ros-workspace/build/${{ inputs.package }}/*
           ros-workspace/install/share/${{ inputs.package }}/*
           ros-workspace/install/include/${{ inputs.package }}/*
+
+    - name: Upload all artifacts
+      if: ${{ inputs.artifacts == "all" }}
+      uses: actions/upload-artifact@v3
+      with:
+        name: ros-workspace-artifacts
+        path: |
+          ros-workspace/build/*
+          ros-workspace/install/*
