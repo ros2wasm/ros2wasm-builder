@@ -57,17 +57,11 @@ runs:
         vcs import --input ${{ github.action_path }}/repos.yaml ros-workspace/src
 
     - name: Checkout rmw_wasm middleware
+      if: ${{ inputs.rmw_wasm }}
       uses: actions/checkout@v4
       with:
         repository: ihuicatl/rmw_wasm
         path: ros-workspace/src/rmw_wasm
-
-    - name: Verify rmw_wasm middleware
-      shell: bash -eux {0}
-      if: ${{ inputs.rmw_wasm }}
-      run: |
-        echo "VERIFY RMW_WASM"
-        ls -al ros-workspace/src/rmw_wasm
 
     - name: Remove unsupported packages
       shell: bash -eux {0}
