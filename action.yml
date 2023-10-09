@@ -57,6 +57,7 @@ runs:
         vcs import --input ${{ github.action_path }}/repos.yaml ros-workspace/src
 
     - name: Clone rmw_wasm middleware
+      shell: bash -eux {0}
       if: ${{ inputs.rmw_wasm }}
       run: git clone https://github.com/ihuicatl/rmw_wasm.git ros-worskpace/src/rmw_wasm
 
