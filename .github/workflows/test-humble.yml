@@ -25,4 +25,3 @@ jobs:
           package: 'test_wasm'
           ros_distro: 'humble'
           debug_mode: false
-          artifacts: 'all'
