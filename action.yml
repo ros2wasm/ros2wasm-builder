@@ -24,6 +24,10 @@ inputs:
     type: string
     default: "package"
     required: true
+  rmw_wasm:
+    description: "Clone rmw_wasm middleware"
+    type: boolean
+    default: true
 
 runs:
   using: composite
@@ -56,6 +60,10 @@ runs:
         sudo apt-get install python3-vcstool
         vcs import --input https://raw.githubusercontent.com/ros2/ros2/${{ inputs.ros_distro }}/ros2.repos ros-workspace/src
         vcs import --input ${{ github.action_path }}/repos.yaml ros-workspace/src
+
+    - name: Clone rmw_wasm middleware
+      if: ${{ inputs.rmw_wasm }}
+      run: git clone https://github.com/ihuicatl/rmw_wasm.git ros-worskpace/src/rmw_wasm
 
     - name: Remove unsupported packages
       shell: bash -eux {0}
