@@ -19,6 +19,10 @@ inputs:
     description: "Debug mode"
     type: boolean
     default: false
+  rmw_wasm:
+    description: "Clone rmw_wasm middleware"
+    type: boolean
+    default: true
 
 runs:
   using: composite
@@ -51,6 +55,13 @@ runs:
         sudo apt-get install python3-vcstool
         vcs import --input https://raw.githubusercontent.com/ros2/ros2/${{ inputs.ros_distro }}/ros2.repos ros-workspace/src
         vcs import --input ${{ github.action_path }}/repos.yaml ros-workspace/src
+
+    - name: Checkout rmw_wasm middleware
+      if: ${{ inputs.rmw_wasm }}
+      uses: actions/checkout@v4
+      with:
+        repository: ihuicatl/rmw_wasm
+        path: ros-workspace/src/rmw_wasm
 
     - name: Remove unsupported packages
       shell: bash -eux {0}
@@ -89,7 +100,7 @@ runs:
         cd ros-workspace
         if [${{ inputs.debug }}]; then ${{ github.action_path }}/blasm.sh -d -v -u ${{ inputs.package }}; else ${{ github.action_path }}/blasm.sh -u ${{ inputs.package }}; fi
 
-    - name: Upload artifacts
+    - name: Upload artifacts for package
       uses: actions/upload-artifact@v3
       with:
         name: ${{ inputs.package }}-artifacts
